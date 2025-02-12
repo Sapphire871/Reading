@@ -25,15 +25,15 @@ TxtF2 = TxtF2.split(' ')
 TxtF1U = list(set(TxtF1))
 TxtF2U = list(set(TxtF2))
 
-Kesim = []
+Converge = []
 
 for i in TxtF1U:
-    if i not in Kesim:
-        Kesim.append(i)
+    if i not in Converge:
+        Converge.append(i)
 
 for i in TxtF2U:
-    if i not in Kesim:
-        Kesim.append(i)
+    if i not in Converge:
+        Converge.append(i)
 
 ##Unique words union in text 1 count
 T1UC = 0
@@ -48,7 +48,7 @@ T2C = 0
 ##Unique Union Count
 UUC = 0
 
-for i in Kesim:
+for i in Converge:
     if i in TxtF1:
         T1UC+=1
 
@@ -56,7 +56,7 @@ for i in TxtF1U:
     if i in TxtF1:
         T1C+=1
 
-for i in Kesim:
+for i in Converge:
     if i in TxtF2:
         T2UC += 1
 
@@ -64,9 +64,13 @@ for i in TxtF2U:
     if i in TxtF2:
         T2C+=1
 
-for i in Kesim:
+for i in Converge:
     if i in TxtF1U and i in TxtF2U:
         UUC += 1
-        
+
+##Converge word count
+Con_W_C = len(Converge)
+
+
 
 os.system("pause")
