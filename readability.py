@@ -1,0 +1,72 @@
+## 1.599 * (number of one sylabble words per 100 words)nosw - 1.015 * (avarage sentence length)sl - 31.517
+import os
+
+os.system("color a")
+##path = input("Enter path to directory: ")
+path = r"C:\Users\user\Desktop"
+
+TxtF1 = str(input("First File name:"))
+TxtF2 = str(input("Second File name:"))
+
+with open(fr"{path}\{TxtF1}", 'r', encoding = "utf-8") as f1:
+    TxtF1 = f1.read()
+f1.close()
+
+with open(fr"{path}\{TxtF2}", 'r', encoding = "utf-8") as f2:
+    TxtF2 = f2.read()
+f2.close()
+
+TxtF1 = str(TxtF1)
+TxtF2 = str(TxtF2)
+
+TxtF1 = TxtF1.split(' ')
+TxtF2 = TxtF2.split(' ')
+
+TxtF1U = list(set(TxtF1))
+TxtF2U = list(set(TxtF2))
+
+Kesim = []
+
+for i in TxtF1U:
+    if i not in Kesim:
+        Kesim.append(i)
+
+for i in TxtF2U:
+    if i not in Kesim:
+        Kesim.append(i)
+
+##Unique words union in text 1 count
+T1UC = 0
+##Unique word in text 1 count
+T1C = 0
+
+##Unique words union in text 2 count
+T2UC = 0
+##Unique word in text 2 count
+T2C = 0
+
+##Unique Union Count
+UUC = 0
+
+for i in Kesim:
+    if i in TxtF1:
+        T1UC+=1
+
+for i in TxtF1U:
+    if i in TxtF1:
+        T1C+=1
+
+for i in Kesim:
+    if i in TxtF2:
+        T2UC += 1
+
+for i in TxtF2U:
+    if i in TxtF2:
+        T2C+=1
+
+for i in Kesim:
+    if i in TxtF1U and i in TxtF2U:
+        UUC += 1
+        
+
+os.system("pause")
