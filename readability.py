@@ -71,6 +71,10 @@ for i in Converge:
 ##Converge word count
 Con_W_C = len(Converge)
 
+Txt1_ratio = (T1UC / len(TxtF1)) * 100
+Txt2_ratio = (T2UC / len(TxtF2)) * 100
 
+print(f"1. Metin belgesinin, kesişime oranı {Txt1_ratio}")  
+print(f"2. Metin belgesinin, kesişime oranı {Txt2_ratio}")  
 
 os.system("pause")
