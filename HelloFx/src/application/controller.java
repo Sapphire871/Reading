@@ -2,25 +2,48 @@ package application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
-public class controller {
-	@FXML
-	private Label MyLabel;
-	@FXML
-	private Button MyButton;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.Scanner;
+
+public class controller implements Initializable {
+
 	
-	int deger;
+	FileChooser fileChooser = new FileChooser();
 	
-	public void show(ActionEvent event) {
-		try {
-			deger = 17;
-			MyLabel.setText(deger +"%");
+    @FXML
+    private Button MyButton;
+
+    @FXML
+    private TextArea Txet;
+
+    @FXML
+    void show(ActionEvent event) {
+    	File file = fileChooser.showOpenDialog(new Stage());
+    	try {
+			Scanner scanner = new Scanner(file);
+			while(scanner.hasNextLine()) {
+				Txet.appendText(scanner.nextLine() + "\n");
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		catch (Exception e) {
-			System.out.println(e);		
-		}
+    }
+
+	@Override
+	public void initialize(URL url, ResourceBundle resourcebundle) {
+		fileChooser.setInitialDirectory(new File("C:\\Users\\user\\Desktop"));
+		// TODO Auto-generated method stub
 		
 	}
+
 }
