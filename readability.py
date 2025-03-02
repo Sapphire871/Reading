@@ -1,7 +1,5 @@
-## 1.599 * (number of one sylabble words per 100 words)nosw - 1.015 * (avarage sentence length)sl - 31.517
 import os
 
-os.system("color a")
 ##path = input("Enter path to directory: ")
 path = r"C:\Users\user\Desktop"
 
@@ -37,39 +35,39 @@ for i in TxtF2U:
 
 ##Unique words union in text 1 count
 T1UC = 0
-##Unique word in text 1 count
-T1C = 0
+####Unique word in text 1 count
+##T1C = 0
 
 ##Unique words union in text 2 count
 T2UC = 0
-##Unique word in text 2 count
-T2C = 0
-
-##Unique Union Count
-UUC = 0
+####Unique word in text 2 count
+##T2C = 0
+##
+####Unique Union Count
+##UUC = 0
 
 for i in Converge:
     if i in TxtF1:
         T1UC+=1
 
-for i in TxtF1U:
-    if i in TxtF1:
-        T1C+=1
+##for i in TxtF1U:
+##    if i in TxtF1:
+##        T1C+=1
 
 for i in Converge:
     if i in TxtF2:
         T2UC += 1
 
-for i in TxtF2U:
-    if i in TxtF2:
-        T2C+=1
+##for i in TxtF2U:
+##    if i in TxtF2:
+##        T2C+=1
 
-for i in Converge:
-    if i in TxtF1U and i in TxtF2U:
-        UUC += 1
-
-##Converge word count
-Con_W_C = len(Converge)
+##for i in Converge:
+##    if i in TxtF1U and i in TxtF2U:
+##        UUC += 1
+##
+####Converge word count
+##Con_W_C = len(Converge)
 
 Txt1_ratio = (T1UC / len(TxtF1)) * 100
 Txt2_ratio = (T2UC / len(TxtF2)) * 100
