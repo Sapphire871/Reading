@@ -1,0 +1,9 @@
+readability.py : 
+İki farklı .txt dosyasının birbirine ne kadar benzediğini hesap eden basit bir algoritma. Son kullandığımız algoritma tabi bundan daha karmaşık olmak zorunda.
+
+HelloFx dosyası:
+JavaFX kullanarak bir grafik kullanıcı arayüzü oluşturulması sağlayan dosyaları barındıran klasör.
+ 
+controller.java: ekranda bulunan butonların, metinlerin kontrollerini ve butonların fonksiyonlarının yazıldığı dosya.
+main.fxml: javaFX'e yardımcı olan Scene builder'dan yapılan değişikliklerin bulunduğu ve arayüze karşılık olan dosya.
+Main.java: javaFX'i çalıştıran dosya.
