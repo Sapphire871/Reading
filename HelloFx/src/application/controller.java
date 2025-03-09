@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -27,9 +28,7 @@ public class controller implements Initializable {
 	private String txtF1, LtxtF1[];
 	
 	private String txtF2, LtxtF2[];
-	
-	private String[] Converge;
-	
+
     @FXML
     private Button myButton2;
     
@@ -69,8 +68,7 @@ public class controller implements Initializable {
     String[] getLTxtF2() {
     	return LtxtF2;
     }
-
-
+    
     @FXML
     void show(ActionEvent event) {
     	File file = fileChooser.showOpenDialog(new Stage());
@@ -105,22 +103,44 @@ public class controller implements Initializable {
     	return str.trim().split("\\s+");
     }
     
-    void master() {
+    void ratio() {
     	setLTxtF1(splitt(getTxtF1()));
     	setLTxtF2(splitt(getTxtF2()));
     	
+    	Set<String> convergedSet = new LinkedHashSet<>();
+    	
     	List<String> list = Arrays.asList(getLTxtF1());
     	Set<String> set = new HashSet<String>(list);
-    	
+
     	setLTxtF1(set.toArray());
+    	
+    	convergedSet.addAll(set);
     	
     	list = Arrays.asList(getLTxtF2());
     	set = new HashSet<String>(list);
     	
     	setLTxtF2(set.toArray());
     	
+    	convergedSet.addAll(set);
     	
-    			
+    	int T1UC = 0; //Unique words union in text 1
+    	int T2UC = 0; //Unique words union in text 2
+    	
+    	for (String word : convergedSet) {
+    		if (getTxtF1().contains(word)) {
+    			T1UC++;
+    		}
+    	}
+    	
+    	for (String word : convergedSet) {
+    		if (getTxtF2().contains(word)) {
+    			T2UC++;
+    		}
+    	}
+    	
+        double Txt1Ratio = ((double) T1UC / getTxtF1().length()) * 100;
+        double Txt2Ratio = ((double) T2UC / getTxtF2().length()) * 100;
+    	    			
     }
     
 	@Override
@@ -128,5 +148,9 @@ public class controller implements Initializable {
 		fileChooser.setInitialDirectory(new File("C:\\Users\\user\\Desktop"));
 		// TODO Auto-generated method stub
 		
+	}
+	
+	void master() {
+		// TODO this will take an action and call for all the relevant functions in order and will display the ratios.
 	}
 }
