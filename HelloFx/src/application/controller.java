@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -26,19 +27,37 @@ public class controller implements Initializable {
 	FileChooser fileChooser = new FileChooser();
 	
 	private String txtF1, ULtxtF1[];
-	
+						  //Unique words in text f1.
 	private String txtF2, ULtxtF2[];
+						  //Unique words in text f2.
+	private double Txt1Ratio, Txt2Ratio;
 
     @FXML
-    private Button myButton2;
+    private Button myButton;
     
     @FXML
-    private Button MyButton;
+    private Label labelText1;
 
     @FXML
-    private TextArea Txet;
-    
-    void setTxtF1(String text) {
+    private Label labelText2;
+
+	public double getTxt2Ratio() {
+		return Txt2Ratio;
+	}
+
+	public void setTxt2Ratio(double txt2Ratio) {
+		Txt2Ratio = txt2Ratio;
+	}
+
+	public double getTxt1Ratio() {
+		return Txt1Ratio;
+	}
+
+	public void setTxt1Ratio(double txt1Ratio) {
+		Txt1Ratio = txt1Ratio;
+	}
+
+	void setTxtF1(String text) {
     	txtF1 = text;
     }
     
@@ -46,12 +65,12 @@ public class controller implements Initializable {
     	txtF2 = text;
     }
     
-    void setULtxtF1(Object[] objects) {
-    	ULtxtF1 = (String[]) objects;
+    void setULtxtF1(String[] strr) {
+    	ULtxtF1 = strr;
     }
     
-    void setULtxtF2(Object[] objects) {
-    	ULtxtF2 = (String[]) objects;
+    void setULtxtF2(String[] strr) {
+    	ULtxtF2 = strr;
     }
     String getTxtF1() {
     	return txtF1;
@@ -70,7 +89,7 @@ public class controller implements Initializable {
     }
     
     @FXML
-    void show(ActionEvent event) {
+    void show() {
     	File file = fileChooser.showOpenDialog(new Stage());
     	try (Scanner scanner = new Scanner(file)) {
 			while(scanner.hasNextLine()) {
@@ -85,7 +104,7 @@ public class controller implements Initializable {
     }
     
     @FXML
-    void show2(ActionEvent event) {
+    void show2() {
     	File file2 = fileChooser.showOpenDialog(new Stage());
     	try (Scanner scanner = new Scanner(file2)) {
 			while(scanner.hasNextLine()) {
@@ -113,7 +132,7 @@ public class controller implements Initializable {
     	List<String> LtxtF1 = Arrays.asList(getULtxtF1());
     	Set<String> set = new HashSet<String>(list);
 
-    	setULtxtF1(set.toArray());
+    	setULtxtF1((String[]) set.toArray());
     	
     	convergedSet.addAll(set);
     	
@@ -121,7 +140,7 @@ public class controller implements Initializable {
     	List<String> LtxtF2 = Arrays.asList(getULtxtF1());
     	set = new HashSet<String>(list);
     	
-    	setULtxtF2(set.toArray());
+    	setULtxtF2((String[]) set.toArray());
     	
     	convergedSet.addAll(set);
     	
@@ -140,8 +159,8 @@ public class controller implements Initializable {
     		}
     	}
     	
-        double Txt1Ratio = ((double) T1UC / LtxtF1.size() ) * 100;
-        double Txt2Ratio = ((double) T2UC / LtxtF2.size() ) * 100;
+        setTxt1Ratio(((double) T1UC / LtxtF1.size() ) * 100);
+        setTxt2Ratio(((double) T2UC / LtxtF2.size() ) * 100);
     	    			
     }
     
@@ -152,7 +171,14 @@ public class controller implements Initializable {
 		
 	}
 	
-	void master() {
-		// TODO this will take an action and call for all the relevant functions in order and will display the ratios.
+	@FXML
+	void master(ActionEvent event) {
+		show();
+		show2();
+		ratio();
+		labelText1.setText(Double.toString(getTxt1Ratio()) + '%');
+		labelText2.setText(Double.toString(getTxt2Ratio()) + '%');
+		// TODO this does not work at all. ratio function is fundamentally broken
+		// TODO fix conversion.
 	}
 }
