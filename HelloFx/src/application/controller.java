@@ -25,9 +25,9 @@ public class controller implements Initializable {
 
 	FileChooser fileChooser = new FileChooser();
 	
-	private String txtF1, LtxtF1[];
+	private String txtF1, ULtxtF1[];
 	
-	private String txtF2, LtxtF2[];
+	private String txtF2, ULtxtF2[];
 
     @FXML
     private Button myButton2;
@@ -46,12 +46,12 @@ public class controller implements Initializable {
     	txtF2 = text;
     }
     
-    void setLTxtF1(Object[] objects) {
-    	LtxtF1 = (String[]) objects;
+    void setULtxtF1(Object[] objects) {
+    	ULtxtF1 = (String[]) objects;
     }
     
-    void setLTxtF2(Object[] objects) {
-    	LtxtF2 = (String[]) objects;
+    void setULtxtF2(Object[] objects) {
+    	ULtxtF2 = (String[]) objects;
     }
     String getTxtF1() {
     	return txtF1;
@@ -61,12 +61,12 @@ public class controller implements Initializable {
     	return txtF2;
     }
     
-    String[] getLTxtF1() {
-    	return LtxtF1;
+    String[] getULtxtF1() {
+    	return ULtxtF1;
     }
     
-    String[] getLTxtF2() {
-    	return LtxtF2;
+    String[] getULtxtF2() {
+    	return ULtxtF2;
     }
     
     @FXML
@@ -104,22 +104,24 @@ public class controller implements Initializable {
     }
     
     void ratio() {
-    	setLTxtF1(splitt(getTxtF1()));
-    	setLTxtF2(splitt(getTxtF2()));
+    	setULtxtF1(splitt(getTxtF1()));
+    	setULtxtF2(splitt(getTxtF2()));
     	
     	Set<String> convergedSet = new LinkedHashSet<>();
     	
-    	List<String> list = Arrays.asList(getLTxtF1());
+    	List<String> list = Arrays.asList(getULtxtF1());
+    	List<String> LtxtF1 = Arrays.asList(getULtxtF1());
     	Set<String> set = new HashSet<String>(list);
 
-    	setLTxtF1(set.toArray());
+    	setULtxtF1(set.toArray());
     	
     	convergedSet.addAll(set);
     	
-    	list = Arrays.asList(getLTxtF2());
+    	list = Arrays.asList(getULtxtF2());
+    	List<String> LtxtF2 = Arrays.asList(getULtxtF1());
     	set = new HashSet<String>(list);
     	
-    	setLTxtF2(set.toArray());
+    	setULtxtF2(set.toArray());
     	
     	convergedSet.addAll(set);
     	
@@ -138,8 +140,8 @@ public class controller implements Initializable {
     		}
     	}
     	
-        double Txt1Ratio = ((double) T1UC / getTxtF1().length()) * 100;
-        double Txt2Ratio = ((double) T2UC / getTxtF2().length()) * 100;
+        double Txt1Ratio = ((double) T1UC / LtxtF1.size() ) * 100;
+        double Txt2Ratio = ((double) T2UC / LtxtF2.size() ) * 100;
     	    			
     }
     
