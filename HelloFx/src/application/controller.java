@@ -130,22 +130,25 @@ public class controller implements Initializable {
     	
     	List<String> list = Arrays.asList(getULtxtF1());
     	List<String> LtxtF1 = Arrays.asList(getULtxtF1());
-    	Set<String> set = new HashSet<String>(list);
+    	Set<String> set1 = new HashSet<String>(list);
 
-    	setULtxtF1((String[]) set.toArray());
+    	setULtxtF1(set1.toArray(new String[0]));
     	
-    	convergedSet.addAll(set);
     	
     	list = Arrays.asList(getULtxtF2());
     	List<String> LtxtF2 = Arrays.asList(getULtxtF1());
-    	set = new HashSet<String>(list);
+    	Set<String> set2 = new HashSet<String>(list);
     	
-    	setULtxtF2((String[]) set.toArray());
+    	setULtxtF2(set2.toArray(new String[0]));
     	
-    	convergedSet.addAll(set);
+    	for (String word: set1) {
+    		if (set2.contains(word)) {
+    			convergedSet.add(word);
+    		}
+    	}
     	
-    	int T1UC = 0; //Unique words union in text 1
-    	int T2UC = 0; //Unique words union in text 2
+    	int T1UC = 0; //Unique words converged in text 1
+    	int T2UC = 0; //Unique words converged in text 2
     	
     	for (String word : convergedSet) {
     		if (getTxtF1().contains(word)) {
@@ -161,7 +164,8 @@ public class controller implements Initializable {
     	
         setTxt1Ratio(((double) T1UC / LtxtF1.size() ) * 100);
         setTxt2Ratio(((double) T2UC / LtxtF2.size() ) * 100);
-    	    			
+    	    		
+        
     }
     
 	@Override
