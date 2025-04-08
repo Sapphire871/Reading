@@ -136,7 +136,7 @@ public class controller implements Initializable {
     	
     	
     	list = Arrays.asList(getULtxtF2());
-    	List<String> LtxtF2 = Arrays.asList(getULtxtF1());
+    	List<String> LtxtF2 = Arrays.asList(getULtxtF2());
     	Set<String> set2 = new HashSet<String>(list);
     	
     	setULtxtF2(set2.toArray(new String[0]));
@@ -182,7 +182,5 @@ public class controller implements Initializable {
 		ratio();
 		labelText1.setText(Double.toString(getTxt1Ratio()) + '%');
 		labelText2.setText(Double.toString(getTxt2Ratio()) + '%');
-		// TODO this does not work at all. ratio function is fundamentally broken
-		// TODO fix conversion.
 	}
 }
