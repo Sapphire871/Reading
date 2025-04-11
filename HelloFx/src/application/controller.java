@@ -5,22 +5,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.Set;
 
 public class controller implements Initializable {
@@ -89,30 +89,25 @@ public class controller implements Initializable {
     	return ULtxtF2;
     }
     
-    @FXML
-    void show() {
+    String read(String t) {
     	File file = fileChooser.showOpenDialog(new Stage());
-    	try (Scanner scanner = new Scanner(file)) {
-			while(scanner.hasNextLine()) {
-				txtF1 = scanner.useDelimiter("\\A").next();
-			}
-		} catch (FileNotFoundException e) {
+    	try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+    	    StringBuilder sb = new StringBuilder();
+    	    String line;
+    	    while ((line = br.readLine()) != null) {
+    	        sb.append(line).append(System.lineSeparator());
+    	    }
+    	    t = sb.toString();
+    	    return t;
+    	} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-    }
-    
-    @FXML
-    void show2() {
-    	File file2 = fileChooser.showOpenDialog(new Stage());
-    	try (Scanner scanner = new Scanner(file2)) {
-			while(scanner.hasNextLine()) {
-				txtF2 = scanner.useDelimiter("\\A").next();
-			}
-		} catch (FileNotFoundException e) {
+			return null;
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			e1.printStackTrace();
+			return null;
+		}  	
     }
     
     String[] splitt(String str) {
@@ -148,15 +143,11 @@ public class controller implements Initializable {
     	int T2UC = 0; //Unique words converged in text 2
     	
     	for (String word : convergedSet) {
-    		if (getTxtF1().contains(word)) {
-    			T1UC++;
-    		}
+    		T1UC += Collections.frequency(Arrays.asList(splitt(getTxtF1())), word);
     	}
     	
     	for (String word : convergedSet) {
-    		if (getTxtF2().contains(word)) {
-    			T2UC++;
-    		}
+    		T2UC += Collections.frequency(Arrays.asList(splitt(getTxtF2())), word);
     	}
     	
         setTxt1Ratio(((double) T1UC / LtxtF1.size() ) * 100);
@@ -170,13 +161,12 @@ public class controller implements Initializable {
 		String userDirectoryPath = System.getProperty("user.dir");
 		fileChooser.setInitialDirectory(new File(userDirectoryPath));
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@FXML
 	void master(ActionEvent event) {
-		show();
-		show2();
+		setTxtF1(read((getTxtF1())));
+		setTxtF2(read((getTxtF1())));
 		ratio();
     	DecimalFormat df = new DecimalFormat("#.#####");
 		labelText1.setText(df.format(getTxt1Ratio()) + '%');
