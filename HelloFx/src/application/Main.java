@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
+//TODO dynamically change the location and size of items on the window and make the window mode non changeable.
 
 public class Main extends Application {
 	@Override
@@ -16,6 +17,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setMaximized(true);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

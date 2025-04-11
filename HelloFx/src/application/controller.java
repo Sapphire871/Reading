@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -93,9 +94,7 @@ public class controller implements Initializable {
     	File file = fileChooser.showOpenDialog(new Stage());
     	try (Scanner scanner = new Scanner(file)) {
 			while(scanner.hasNextLine()) {
-				//Txet.appendText(scanner.nextLine() + "\n");
 				txtF1 = scanner.useDelimiter("\\A").next();
-				//System.out.println(txtF1);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -108,9 +107,7 @@ public class controller implements Initializable {
     	File file2 = fileChooser.showOpenDialog(new Stage());
     	try (Scanner scanner = new Scanner(file2)) {
 			while(scanner.hasNextLine()) {
-				//Txet.appendText(scanner.nextLine() + "\n");
 				txtF2 = scanner.useDelimiter("\\A").next();
-				//System.out.println(txtF1)
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -119,7 +116,7 @@ public class controller implements Initializable {
     }
     
     String[] splitt(String str) {
-    	return str.trim().split("\\s+");
+    	return str.trim().replaceAll("[^\\s\\p{L}0-9]", "").split("\\s+");
     }
     
     void ratio() {
@@ -170,7 +167,8 @@ public class controller implements Initializable {
     
 	@Override
 	public void initialize(URL url, ResourceBundle resourcebundle) {
-		fileChooser.setInitialDirectory(new File("C:\\Users\\user\\Desktop"));
+		String userDirectoryPath = System.getProperty("user.dir");
+		fileChooser.setInitialDirectory(new File(userDirectoryPath));
 		// TODO Auto-generated method stub
 		
 	}
@@ -180,7 +178,8 @@ public class controller implements Initializable {
 		show();
 		show2();
 		ratio();
-		labelText1.setText(Double.toString(getTxt1Ratio()) + '%');
-		labelText2.setText(Double.toString(getTxt2Ratio()) + '%');
+    	DecimalFormat df = new DecimalFormat("#.#####");
+		labelText1.setText(df.format(getTxt1Ratio()) + '%');
+		labelText2.setText(df.format(getTxt2Ratio()) + '%');
 	}
 }
