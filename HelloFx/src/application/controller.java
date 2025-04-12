@@ -166,7 +166,7 @@ public class controller implements Initializable {
 	@FXML
 	void master(ActionEvent event) {
 		setTxtF1(read((getTxtF1())));
-		setTxtF2(read((getTxtF1())));
+		setTxtF2(read((getTxtF2())));
 		ratio();
     	DecimalFormat df = new DecimalFormat("#.#####");
 		labelText1.setText(df.format(getTxt1Ratio()) + '%');
