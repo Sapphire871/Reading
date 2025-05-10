@@ -1,14 +1,123 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
+<head>
+    <title>Dosya Karşılaştırma</title>
     <meta charset="UTF-8">
-    <title>Home</title>
-		</head>
-		<body>
-			<div class="container">
-                <h1>Welcome to the Home Page</h1>
-                <p>This is a simple Thymeleaf template.</p>
-                <a th:href="@{/about}" class="btn btn-primary">Go to About Page</a>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .greeting {
+            font-size: 1.2em;
+        }
+
+        .logout {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .logout:hover {
+            background-color: #d32f2f;
+        }
+
+        .content {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 40px;
+        }
+
+        .file-inputs {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .file-inputs > div {
+            width: 48%;
+        }
+
+        .compare-button {
+            text-align: left;
+        }
+
+        .compare-button button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .compare-button button:hover {
+            background-color: #388e3c;
+        }
+
+        .result {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="greeting" th:if="${#authentication.principal != null}">
+        <span th:text="'Merhaba, ' + ${#authentication.principal.username} + '!'"></span>
+    </div>
+
+    <form method="POST" action="/logout" style="margin: 0;">
+        <button type="submit" class="logout">Çıkış Yap</button>
+    </form>
+</header>
+
+<div class="content">
+    <h1 class="title">Dosyaları Karşılaştır</h1>
+
+    <form method="POST" action="/compare" enctype="multipart/form-data">
+        <div class="file-inputs">
+            <div>
+                <label for="file1">İlk Dosya:</label><br>
+                <input type="file" id="file1" name="file1" accept=".txt" required>
             </div>
-			</body>
-			</html>
+            <div>
+                <label for="file2">İkinci Dosya:</label><br>
+                <input type="file" id="file2" name="file2" accept=".txt" required>
+            </div>
+        </div>
+
+        <div class="compare-button">
+            <button type="submit">Karşılaştır</button>
+        </div>
+    </form>
+
+    <div class="result" th:if="${result}">
+        <h2>Karşılaştırma Sonucu:</h2>
+        <p th:text="${result}"></p>
+    </div>
+</div>
+
+</body>
+</html>

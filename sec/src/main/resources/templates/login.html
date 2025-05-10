@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Giriş</title>
+	    <meta charset="UTF-8">
+		<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="login-container">
+    <h2>Giriş</h2>
+    <form th:action="@{/login}" method="post">
+        <div>
+            <label>Kullanıcı Adı:</label>
+            <input type="text" name="username" placeholder="Kullanıcı Adı" required minlength="3" />
+        </div>
+        <div>
+            <label>Şifre:</label>
+            <input type="password" name="password" placeholder="Sifre" required minlength="5" />
+        </div>
+		<div th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null}">
+		    <p th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></p>
+		</div>
+
+        <button type="submit">Giriş Yap</button>
+		<a th:href="@{/register}" class="btn btn-primary">Hesabın yok mu? Kayıt ol</a>
+		
+		
+    </form>
+</div>
+</body>
+</html>

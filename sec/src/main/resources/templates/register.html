@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kayıt Ol</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+	    const form = document.querySelector("form");
+	    const password = document.querySelector("input[name='password']");
+	    const confirmPassword = document.querySelector("input[name='confirmPassword']");
+
+	    form.addEventListener("submit", function (e) {
+	        if (password.value !== confirmPassword.value) {
+	            e.preventDefault();
+	            alert("Şifreler Farklı.");
+	        }
+	    });
+	});
+	</script>
+</head>
+<body>
+<div class="login-container">
+    <h2>Kayıt ol</h2>
+	<form th:action="@{/register}" method="post" th:object="${user}">
+	    <label>Kullanıcı Adı</label>
+	    <input type="text" th:field="*{username}" placeholder="Kullanıcı Adı" required minlength="3" />
+	    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+
+	    <label>Şifre</label>
+	    <input type="password" th:field="*{password}" placeholder="Şifre" required minlength="5" />
+	    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+		
+		<label>Şifreyi tekrar gir</label>
+		<input type="password" th:field="*{confirmPassword}" placeholder="Şifreyi tekrar gir" required minlength="5" />
+		<div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+		
+		<div th:if="${registrationError}">
+		    <p th:text="${registrationError}" style="color: red;"></p>
+		</div>
+		
+		<div th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}">
+		    <p th:text="${err}"></p>
+		</div>
+
+	    <button type="submit">Kayıt Ol</button>
+		<a th:href="@{/register}" class="btn btn-primary">Hesabın var mı? Giriş Yap</a>
+	</form>
+</div>
+</body>
+</html>
